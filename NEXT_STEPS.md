@@ -58,22 +58,30 @@ For full session detail with all measurement data, graphs, and the lessons learn
 
 ## Klipper Estimator — what to do in OrcaSlicer
 
-The binary is installed and tested. To activate it for slicing:
+The binary is installed and tested. The static config file is at `/Users/adamlewis/klipper_estimator.cfg` on the Mac. To activate it for slicing:
 
 1. Open **OrcaSlicer → Printer Settings → Machine gcode → Post-processing scripts**
 2. Paste this single line:
 
 ```
-/Users/adamlewis/klipper_estimator --config_moonraker_url http://192.168.0.37:7125 post-process
+/Users/adamlewis/klipper_estimator --config_file /Users/adamlewis/klipper_estimator.cfg post-process
 ```
 
 3. Save the printer profile
 
 After that, every slice will be post-processed to overwrite the slicer's optimistic time estimate with an accurate one (typically within ±5 seconds over a multi-hour print). Mainsail progress bars will then be trustworthy.
 
-Caveats:
-- Requires the Mac to reach the printer's Moonraker at slice time. If you're slicing offline, switch to a static config: `--config_file ~/klipper_estimator.cfg` (the file is at `~/klipper_estimator.cfg` on the printer; we'd need to copy it to the Mac for offline use)
-- Current binary version: v3.7.3 (2024-04-27, latest as of 2026-04-10)
+**Do not** use the `--config_moonraker_url` approach — Adam confirmed it's flaky on this Mac (probably DNS/network/timeout related during slice time when the slicer blocks waiting for Moonraker). The static `--config_file` approach is the one that works.
+
+The static cfg will go stale only if printer motion limits change (`max_velocity`, `max_accel`, `square_corner_velocity`). To re-dump (only when actually needed):
+
+```
+ssh adam@192.168.0.37 "~/klipper_estimator --config_moonraker_url http://localhost:7125 dump-config" > /Users/adamlewis/klipper_estimator.cfg
+```
+
+(The dump runs on the printer where Moonraker is local and reliable — the flakiness is the Mac↔printer network path during slice time, not the printer itself.)
+
+Current binary version: v3.7.3 (2024-04-27, latest as of 2026-04-10).
 
 ---
 
