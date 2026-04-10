@@ -1,2 +1,5 @@
 .DS_Store
 .claude/
+
+# Printer logs — pulled for inspection, not versioned
+backups/*/logs/

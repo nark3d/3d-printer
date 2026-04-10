@@ -1,0 +1,75 @@
+{
+    "close_fan_the_first_x_layers": [
+        "1"
+    ],
+    "default_filament_colour": [
+        "#FD8008"
+    ],
+    "enable_pressure_advance": [
+        "1"
+    ],
+    "eng_plate_temp": [
+        "110"
+    ],
+    "eng_plate_temp_initial_layer": [
+        "120"
+    ],
+    "fan_cooling_layer_time": [
+        "60"
+    ],
+    "fan_max_speed": [
+        "75"
+    ],
+    "fan_min_speed": [
+        "35"
+    ],
+    "filament_flow_ratio": [
+        "0.965"
+    ],
+    "filament_max_volumetric_speed": [
+        "10"
+    ],
+    "filament_retraction_length": [
+        "0.5"
+    ],
+    "filament_settings_id": [
+        "eSun ASA Plus"
+    ],
+    "filament_vendor": [
+        "eSun"
+    ],
+    "from": "User",
+    "full_fan_speed_layer": [
+        "2"
+    ],
+    "hot_plate_temp": [
+        "110"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "120"
+    ],
+    "inherits": "Generic ASA @System",
+    "name": "eSun ASA Plus",
+    "nozzle_temperature": [
+        "250"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "250"
+    ],
+    "overhang_fan_speed": [
+        "100"
+    ],
+    "pressure_advance": [
+        "0.04"
+    ],
+    "slow_down_layer_time": [
+        "5"
+    ],
+    "textured_plate_temp": [
+        "110"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "120"
+    ],
+    "version": "2.3.1.10"
+}

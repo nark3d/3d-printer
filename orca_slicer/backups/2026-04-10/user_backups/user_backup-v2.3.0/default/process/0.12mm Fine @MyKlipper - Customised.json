@@ -1,0 +1,10 @@
+{
+    "from": "User",
+    "inherits": "0.12mm Fine @MyKlipper",
+    "ironing_type": "top",
+    "is_custom_defined": "0",
+    "name": "0.12mm Fine @MyKlipper - Customised",
+    "print_settings_id": "0.12mm Fine @MyKlipper - Customised",
+    "seam_slope_type": "external",
+    "version": "2.0.2.0"
+}

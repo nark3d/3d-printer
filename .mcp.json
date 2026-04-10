@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "printer": {
+      "command": "npx",
+      "args": ["-y", "mcp-3d-printer-server"],
+      "env": {
+        "PRINTER_HOST": "192.168.0.37",
+        "PRINTER_PORT": "7125",
+        "PRINTER_TYPE": "klipper",
+        "NOZZLE_DIAMETER": "0.4",
+        "BED_TYPE": "textured_pei"
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+    "before_layer_change_gcode": ";BEFORE_LAYER_CHANGE\n;[layer_z]\n",
+    "deretraction_speed": [
+        "120"
+    ],
+    "from": "User",
+    "inherits": "MyKlipper 0.4 nozzle",
+    "machine_max_acceleration_e": [
+        "3000",
+        "5000"
+    ],
+    "machine_max_acceleration_extruding": [
+        "40000",
+        "20000"
+    ],
+    "machine_max_acceleration_retracting": [
+        "40000",
+        "5000"
+    ],
+    "machine_max_acceleration_x": [
+        "40000",
+        "20000"
+    ],
+    "machine_max_acceleration_y": [
+        "40000",
+        "20000"
+    ],
+    "machine_max_jerk_e": [
+        "5",
+        "2.5"
+    ],
+    "machine_max_speed_e": [
+        "120",
+        "25"
+    ],
+    "machine_max_speed_x": [
+        "600",
+        "200"
+    ],
+    "machine_max_speed_y": [
+        "600",
+        "200"
+    ],
+    "machine_max_speed_z": [
+        "20",
+        "12"
+    ],
+    "machine_start_gcode": "PRINT_START EXTRUDER_TEMP=[nozzle_temperature_initial_layer] BED_TEMP=[bed_temperature_initial_layer_single]\n",
+    "name": "ZeroG Mercury One",
+    "nozzle_type": [
+        "hardened_steel"
+    ],
+    "print_host": "192.168.0.37",
+    "printable_area": [
+        "0x0",
+        "260x0",
+        "260x240",
+        "0x240"
+    ],
+    "printer_extruder_id": [
+        "1"
+    ],
+    "printer_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "printer_settings_id": "ZeroG Mercury One",
+    "retract_lift_enforce": [
+        "Top Only"
+    ],
+    "retract_when_changing_layer": [
+        "0"
+    ],
+    "retraction_length": [
+        "1"
+    ],
+    "retraction_minimum_travel": [
+        "3"
+    ],
+    "retraction_speed": [
+        "120"
+    ],
+    "support_multi_bed_types": "1",
+    "version": "2.0.2.0",
+    "wipe": [
+        "0"
+    ],
+    "z_hop_types": [
+        "Spiral Lift"
+    ]
+}

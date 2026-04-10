@@ -1,0 +1,40 @@
+{
+    "compatible_printers": [
+        "MyKlipper 0.4 nozzle"
+    ],
+    "enable_pressure_advance": [
+        "1"
+    ],
+    "eng_plate_temp": [
+        "110"
+    ],
+    "eng_plate_temp_initial_layer": [
+        "110"
+    ],
+    "filament_flow_ratio": [
+        "0.96"
+    ],
+    "filament_settings_id": [
+        "eSun ASA Plus - Clean"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "110"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "110"
+    ],
+    "inherits": "Generic ASA @System",
+    "is_custom_defined": "0",
+    "name": "eSun ASA Plus - Clean",
+    "pressure_advance": [
+        "0.04"
+    ],
+    "textured_plate_temp": [
+        "110"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "110"
+    ],
+    "version": "2.3.1.10"
+}

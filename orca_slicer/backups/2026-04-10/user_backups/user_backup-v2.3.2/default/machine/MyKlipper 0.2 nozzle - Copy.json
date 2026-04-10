@@ -1,0 +1,14 @@
+{
+    "from": "User",
+    "inherits": "MyKlipper 0.2 nozzle",
+    "name": "MyKlipper 0.2 nozzle - Copy",
+    "print_host": "192.168.0.37",
+    "printer_extruder_id": [
+        "1"
+    ],
+    "printer_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "printer_settings_id": "MyKlipper 0.2 nozzle - Copy",
+    "version": "2.3.2.40"
+}

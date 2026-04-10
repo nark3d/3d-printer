@@ -1,0 +1,87 @@
+{
+    "adaptive_pressure_advance": [
+        "1"
+    ],
+    "compatible_printers": [
+        "MyKlipper 0.4 nozzle"
+    ],
+    "default_filament_colour": [
+        "#108080"
+    ],
+    "enable_overhang_bridge_fan": [
+        "0"
+    ],
+    "enable_pressure_advance": [
+        "1"
+    ],
+    "eng_plate_temp": [
+        "110"
+    ],
+    "eng_plate_temp_initial_layer": [
+        "120"
+    ],
+    "fan_max_speed": [
+        "0"
+    ],
+    "filament_deretraction_speed": [
+        "23"
+    ],
+    "filament_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "filament_flow_ratio": [
+        "0.975"
+    ],
+    "filament_max_volumetric_speed": [
+        "10"
+    ],
+    "filament_retraction_length": [
+        "0.5"
+    ],
+    "filament_retraction_minimum_travel": [
+        "1.5"
+    ],
+    "filament_retraction_speed": [
+        "30"
+    ],
+    "filament_settings_id": [
+        "eSun ASA+"
+    ],
+    "filament_vendor": [
+        "eSun"
+    ],
+    "filament_wipe": [
+        "0"
+    ],
+    "filament_wipe_distance": [
+        "0.6"
+    ],
+    "filament_z_hop": [
+        "0.4"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "110"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "120"
+    ],
+    "inherits": "Generic ASA @System",
+    "name": "eSun ASA+",
+    "overhang_fan_speed": [
+        "0"
+    ],
+    "pressure_advance": [
+        "0.032"
+    ],
+    "reduce_fan_stop_start_freq": [
+        "0"
+    ],
+    "textured_plate_temp": [
+        "110"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "120"
+    ],
+    "version": "2.3.1.10"
+}

@@ -1,0 +1,793 @@
+
+================================================================
+=== BACKUP METADATA
+================================================================
+Date captured: 2026-04-10T11:30:22Z (UTC)
+Captured from: adam@3d-printer (192.168.0.37 )
+
+================================================================
+=== OS / KERNEL / HARDWARE
+================================================================
+Linux 3d-printer 6.12.47+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.47-1+rpt1~bookworm (2025-09-16) aarch64 GNU/Linux
+
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+NAME="Debian GNU/Linux"
+VERSION_ID="12"
+VERSION="12 (bookworm)"
+VERSION_CODENAME=bookworm
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+--- /proc/device-tree/model ---
+Raspberry Pi 5 Model B Rev 1.0
+
+--- CPU ---
+  Architecture:                            aarch64
+  CPU(s):                                  4
+  On-line CPU(s) list:                     0-3
+  Vendor ID:                               ARM
+  Model name:                              Cortex-A76
+  CPU(s) scaling MHz:                      67%
+  CPU max MHz:                             2400.0000
+  NUMA node0 CPU(s):                       0-3
+  NUMA node1 CPU(s):                       0-3
+  NUMA node2 CPU(s):                       0-3
+  NUMA node3 CPU(s):                       0-3
+  NUMA node4 CPU(s):                       0-3
+  NUMA node5 CPU(s):                       0-3
+  NUMA node6 CPU(s):                       0-3
+  NUMA node7 CPU(s):                       0-3
+
+--- Memory ---
+               total        used        free      shared  buff/cache   available
+Mem:           7.9Gi       915Mi       5.1Gi        24Mi       2.0Gi       7.0Gi
+Swap:          511Mi          0B       511Mi
+
+--- Disk ---
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/mmcblk0p2  117G   35G   77G  32% /
+/dev/mmcblk0p2  117G   35G   77G  32% /
+/dev/mmcblk0p2  117G   35G   77G  32% /
+
+================================================================
+=== NETWORK
+================================================================
+3d-printer
+192.168.0.37 
+
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             DOWN           
+wlan0            UP             192.168.0.37/24 fe80::4ffb:6c18:d9:4cc6/64 
+
+--- CAN bus interfaces ---
+  (none)
+
+  can0: not present
+
+================================================================
+=== USB DEVICES
+================================================================
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 003 Device 003: ID 0c45:6366 Microdia Webcam Vitade AF
+Bus 003 Device 006: ID 04d8:e72b Microchip Technology, Inc. Beacon RevH
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 010: ID 1d50:614e OpenMoko, Inc. stm32g0b1xx
+Bus 001 Device 004: ID 1a40:0101 Terminus Technology Inc. Hub
+Bus 001 Device 003: ID 1a40:0101 Terminus Technology Inc. Hub
+Bus 001 Device 011: ID 1d50:614e OpenMoko, Inc. stm32f429xx
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+--- Klipper serial mappings ---
+total 0
+drwxr-xr-x 2 root root 100 Apr  5 21:14 .
+drwxr-xr-x 4 root root  80 Apr  5 21:07 ..
+lrwxrwxrwx 1 root root  13 Apr  5 21:14 usb-Beacon_Beacon_RevH_080C96DB4E5737374D202020FF100F37-if00 -> ../../ttyACM1
+lrwxrwxrwx 1 root root  13 Apr  5 21:14 usb-Klipper_stm32f429xx_27001B001250304738313820-if00 -> ../../ttyACM2
+lrwxrwxrwx 1 root root  13 Apr  5 21:14 usb-Klipper_stm32g0b1xx_EBB36_GEN-if00 -> ../../ttyACM0
+
+--- Klipper CAN devices ---
+total 0
+drwxr-xr-x 2 root root 100 Apr  5 21:14 .
+drwxr-xr-x 4 root root  80 Apr  5 21:07 ..
+lrwxrwxrwx 1 root root  13 Apr  5 21:14 platform-xhci-hcd.0-usb-0:1:1.0 -> ../../ttyACM2
+lrwxrwxrwx 1 root root  13 Apr  5 21:14 platform-xhci-hcd.0-usb-0:2.1.3:1.0 -> ../../ttyACM0
+lrwxrwxrwx 1 root root  13 Apr  5 21:14 platform-xhci-hcd.1-usb-0:1:1.0 -> ../../ttyACM1
+
+================================================================
+=== RUNNING SERVICES
+================================================================
+avahi-daemon.service
+cron.service
+crowsnest.service
+dbus.service
+getty@tty1.service
+KlipperScreen.service
+klipper.service
+ModemManager.service
+moonraker-obico.service
+moonraker.service
+NetworkManager.service
+nginx.service
+polkit.service
+ssh.service
+systemd-journald.service
+systemd-logind.service
+systemd-networkd.service
+systemd-timesyncd.service
+systemd-udevd.service
+triggerhappy.service
+user@1000.service
+wpa_supplicant.service
+
+================================================================
+=== KLIPPER-RELATED SERVICES (all states)
+================================================================
+crowsnest.service                          enabled         enabled
+KlipperScreen.service                      enabled         enabled
+klipper.service                            enabled         enabled
+moonraker-obico.service                    enabled         enabled
+moonraker.service                          enabled         enabled
+sonar.service                              enabled         enabled
+
+================================================================
+=== SERVICE FILES
+================================================================
+--- klipper.service ---
+# /etc/systemd/system/klipper.service
+[Unit]
+Description=Klipper 3D Printer Firmware SV1
+Documentation=https://www.klipper3d.org/
+After=network-online.target
+Before=moonraker.service
+Wants=udev.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=adam
+RemainAfterExit=yes
+WorkingDirectory=/home/adam/klipper
+EnvironmentFile=/home/adam/printer_data/systemd/klipper.env
+ExecStart=/home/adam/klippy-env/bin/python $KLIPPER_ARGS
+Restart=always
+RestartSec=10
+
+--- moonraker.service ---
+# /etc/systemd/system/moonraker.service
+# systemd service file for moonraker
+[Unit]
+Description=API Server for Klipper SV1
+Requires=network-online.target
+After=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=adam
+SupplementaryGroups=moonraker-admin
+RemainAfterExit=yes
+EnvironmentFile=/home/adam/printer_data/systemd/moonraker.env
+ExecStart=/home/adam/moonraker-env/bin/python $MOONRAKER_ARGS
+Restart=always
+RestartSec=10
+
+--- KlipperScreen.service ---
+# /etc/systemd/system/KlipperScreen.service
+[Unit]
+Description=KlipperScreen
+StartLimitIntervalSec=0
+# Make sure we are started after logins are permitted. If Plymouth is
+# used, we want to start when it is on its way out.
+After=systemd-user-sessions.service plymouth-quit-wait.service
+# On systems without virtual consoles, do not start.
+ConditionPathExists=/dev/tty0
+# D-Bus is necessary for contacting logind, which is required.
+Wants=dbus.socket systemd-logind.service
+After=dbus.socket systemd-logind.service
+After=moonraker.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=2
+User=adam
+SupplementaryGroups=klipperscreen
+WorkingDirectory=/home/adam/KlipperScreen
+Environment="KS_XCLIENT=/home/adam/.KlipperScreen-env/bin/python /home/adam/KlipperScreen/screen.py" BACKEND=X
+ExecStart="/home/adam/KlipperScreen/scripts/KlipperScreen-start.sh"
+
+# Log this user with utmp, letting it show up with commands 'w' and
+# 'who'. This is needed since we replace (a)getty.
+UtmpIdentifier=tty7
+UtmpMode=user
+# Create a PAM session to run pam-systemd, which creates /var/run/$UID
+PAMName=%u
+# A virtual terminal is needed.
+TTYPath=/dev/tty7
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+
+[Install]
+WantedBy=multi-user.target
+
+--- crowsnest.service ---
+# /etc/systemd/system/crowsnest.service
+#### crowsnest - A webcam Service for multiple Cams and Stream Services.
+####
+#### Written by Stephan Wendel aka KwadFan <me@stephanwe.de>
+#### Copyright 2021 - 2022
+#### https://github.com/mainsail-crew/crowsnest
+####
+#### This File is distributed under GPLv3
+####
+
+[Unit]
+Description=crowsnest - Multi Webcam/Streamer Control Deamon
+Documentation=https://github.com/mainsail-crew/crowsnest
+After=udev.service network-online.target nss-lookup.target
+Wants=udev.service network-online.target
+Before=nginx.service
+StartLimitBurst=10
+StartLimitIntervalSec=180
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=adam
+RemainAfterExit=Yes
+WorkingDirectory=/home/adam/crowsnest
+EnvironmentFile=/home/adam/printer_data/systemd/crowsnest.env
+ExecStart=/usr/local/bin/crowsnest $CROWSNEST_ARGS
+Restart=on-failure
+RestartSec=5
+
+--- sonar.service ---
+# /etc/systemd/system/sonar.service
+#### Sonar - A WiFi Keepalive daemon
+####
+#### Written by Stephan Wendel aka KwadFan <me@stephanwe.de>
+#### Copyright 2022
+#### https://github.com/mainsail-crew/sonar
+####
+#### This File is distributed under GPLv3
+####
+
+[Unit]
+Description=Sonar - A WiFi Keepalive daemon
+Documentation=https://github.com/mainsail-crew/sonar
+After=udev.service network-online.target nss-lookup.target
+Wants=udev.service network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=exec
+EnvironmentFile=/home/adam/printer_data/systemd/sonar.env
+ExecStart=/usr/bin/python3 $SONAR_ARGS
+Restart=on-failure
+RestartSec=5
+
+--- moonraker-obico.service ---
+# /etc/systemd/system/moonraker-obico.service
+#Systemd service file for moonraker-obico
+[Unit]
+Description=Moonraker-Obico
+After=network-online.target moonraker.service
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=adam
+WorkingDirectory=/home/adam/moonraker-obico
+ExecStart=/home/adam/moonraker-obico/../moonraker-obico-env/bin/python3 -m moonraker_obico.app -c /home/adam/printer_data/config/moonraker-obico.cfg
+Restart=always
+RestartSec=5
+
+--- moonraker-timelapse.service ---
+  (not found)
+
+
+================================================================
+=== GIT REPO VERSIONS
+================================================================
+--- klipper ---
+  commit: 57c2e0c960f8e25f56a66ba3a1e90e124f207001
+  date:   2026-02-14 14:08:21 -0500
+  subj:   manual_stepper: Support STOP_ON_ENDSTOP=probe
+  branch: master
+  tag:    v0.13.0-540-g57c2e0c96
+  origin: https://github.com/Klipper3d/klipper.git
+
+--- moonraker ---
+  commit: 293a4cfc2112b950f7cd9abde68d65cd8074b0e4
+  date:   2026-02-08 14:30:09 -0500
+  subj:   docs: update changelog
+  branch: master
+  tag:    v0.10.0-8-g293a4cf
+  origin: https://github.com/Arksine/moonraker.git
+
+--- mainsail ---
+  (directory exists but no .git)
+
+--- mainsail-config ---
+  commit: ff3869a621db17ce3ef660adbbd3fa321995ac42
+  date:   2024-11-24 20:44:23 +0100
+  subj:   feat: add _CLIENT_LINEAR_MOVE macro (#39)
+  branch: master
+  tag:    v1.2.1-1-gff3869a
+  origin: https://github.com/mainsail-crew/mainsail-config.git
+
+--- KlipperScreen ---
+  commit: 5a5ae38203fc5bae8ecf1d0ef5cdba8ab375040a
+  date:   2026-02-17 14:14:54 -0300
+  subj:   docs: clarify that the example is for a particular screen
+  branch: master
+  tag:    v0.4.6-41-g5a5ae38
+  origin: https://github.com/KlipperScreen/KlipperScreen.git
+
+--- crowsnest ---
+  commit: 9cc3d4af94bcc67741ddf07ac301df5de8ba23a4
+  date:   2025-10-07 19:40:07 +0000
+  subj:   docs(changelog): update changelog
+  branch: master
+  tag:    v4.1.17-1-g9cc3d4a
+  origin: https://github.com/mainsail-crew/crowsnest.git
+
+--- sonar ---
+  commit: 0d1d7c89bbb97fb5f54c80f7814ef322c24d6e45
+  date:   2026-01-29 19:22:09 +0100
+  subj:   fix: improve configuration descriptions in sonar.conf (#35)
+  branch: main
+  tag:    v0.2.0-1-g0d1d7c8
+  origin: https://github.com/mainsail-crew/sonar.git
+
+--- moonraker-timelapse ---
+  commit: c7fff11e542b95e0e15b8bb1443cea8159ac0274
+  date:   2023-12-16 19:01:27 +0100
+  subj:   Feature: Add user configurable delayed_gcode interval (#142)
+  branch: main
+  tag:    v0.0.1-143-gc7fff11
+  origin: https://github.com/mainsail-crew/moonraker-timelapse.git
+
+--- moonraker-obico ---
+  commit: 2f6a34a0fce6c496871822ec5f6b7c77442d4757
+  date:   2026-01-24 21:37:17 -0800
+  subj:   Bump version 2.1.5
+  branch: master
+  tag:    v2.1.5
+  origin: https://github.com/TheSpaghettiDetective/moonraker-obico.git
+
+--- kiauh ---
+  commit: 09a5d96b6339b9f0477b1dc58daadaf411e55416
+  date:   2026-02-03 20:46:24 +0100
+  subj:   feat(tmc_autotune): add initial implementation of TMC Autotune extens… (#771)
+  branch: master
+  tag:    v6.1.0
+  origin: https://github.com/dw-0/kiauh.git
+
+--- katapult ---
+  commit: ec59b9bb9ad6c2ec8d4dc6831fbc77f0b308e29e
+  date:   2026-03-20 07:55:49 -0400
+  subj:   test: add optimize flag to test configs
+  branch: master
+  tag:    v0.0.1-113-gec59b9b
+  origin: https://github.com/Arksine/katapult
+
+--- beacon_klipper ---
+  commit: 4d2b15c6398fbe0a2f15e136dd1f487da498c19f
+  date:   2026-03-19 19:01:49 +0100
+  subj:   Predicate `probe` registration on `register_as_probe`.
+  branch: master
+  tag:    v2.0.0-31-g4d2b15c
+  origin: https://github.com/beacon3d/beacon_klipper.git
+
+--- klipper-led_effect ---
+  commit: 24d26c7208c7260a528b4438c7dbf0c279968c01
+  date:   2026-01-23 23:27:54 +0100
+  subj:   Bump Python to 3.14
+  branch: master
+  tag:    v0.0.18
+  origin: https://github.com/julianschill/klipper-led_effect.git
+
+
+================================================================
+=== MAINSAIL WEB VERSION
+================================================================
+  version file not found
+
+total 80
+drwxr-xr-x  6 adam adam  4096 Feb 16 18:37 .
+drwx--x--- 25 adam adam  4096 Apr 10 12:22 ..
+drwxr-xr-x  2 adam adam 12288 Feb 16 18:37 assets
+-rw-r--r--  1 adam adam   200 Feb 16 18:37 config.json
+drwxr-xr-x  3 adam adam  4096 Feb 16 18:37 css
+drwxr-xr-x  2 adam adam  4096 Feb 16 18:37 fonts
+drwxr-xr-x  4 adam adam  4096 Feb 16 18:37 img
+-rw-r--r--  1 adam adam  2150 Feb 16 18:37 index.html
+-rw-r--r--  1 adam adam   497 Feb 16 18:37 manifest.webmanifest
+-rw-r--r--  1 adam adam    79 Feb 16 18:37 release_info.json
+-rw-r--r--  1 adam adam 12045 Feb 16 18:37 sw.js
+-rw-r--r--  1 adam adam     7 Feb 16 18:37 .version
+-rw-r--r--  1 adam adam 16027 Feb 16 18:37 workbox-6730e12c.js
+
+================================================================
+=== PYTHON VENVS — pip freeze
+================================================================
+--- klippy-env ---
+aenum==3.1.16
+cffi==1.14.6
+greenlet==2.0.2
+Jinja2==2.11.3
+MarkupSafe==1.1.1
+msgspec==0.19.0
+numpy==2.4.3
+pycparser==2.23
+pyserial==3.4
+python-can==3.3.4
+scipy==1.17.1
+wrapt==1.17.3
+
+--- moonraker-env ---
+apprise==1.9.6
+certifi==2025.8.3
+charset-normalizer==3.4.3
+click==8.3.0
+dbus-fast==3.1.2
+distro==1.9.0
+idna==3.10
+ifaddr==0.2.0
+importlib_metadata==8.7.1
+inotify-simple==2.0.1
+Jinja2==3.1.6
+ldap3==2.9.1
+libnacl==2.1.0
+Markdown==3.9
+MarkupSafe==3.0.3
+msgspec==0.19.0
+oauthlib==3.3.1
+paho-mqtt==2.1.0
+pillow==12.1.0
+preprocess_cancellation==0.2.1
+pyasn1==0.6.1
+pyserial==3.4
+python-periphery==2.4.1
+PyYAML==6.0.3
+requests==2.32.5
+requests-oauthlib==2.0.0
+smart_open==7.3.1
+streaming-form-data==1.19.1
+tornado==6.5.4
+urllib3==2.5.0
+uvloop==0.21.0
+wrapt==1.17.3
+zeroconf==0.148.0
+zipp==3.23.0
+
+--- .KlipperScreen-env ---
+certifi==2026.1.4
+charset-normalizer==3.4.4
+idna==3.11
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+psutil==7.2.2
+pycairo==1.29.0
+PyGObject==3.50.2
+python-mpv==1.0.8
+requests==2.32.5
+sdbus==0.14.2
+sdbus-networkmanager==2.0.0
+urllib3==2.6.3
+websocket-client==1.9.0
+
+--- moonraker-obico-env ---
+appdirs==1.4.4
+attrs==22.2.0
+backoff==1.11.1
+beautifulsoup4==4.11.2
+beniget==0.4.1
+Brotli==1.0.9
+bson==0.5.10
+certifi==2022.9.24
+chardet==5.1.0
+charset-normalizer==2.0.12
+click==8.3.1
+colorzero==2.0
+contourpy==1.0.7
+crudini==0.9.4
+cycler==0.11.0
+decorator==5.1.1
+distlib==0.3.6
+distro==1.5.0
+filelock==3.9.0
+Flask==2.2.5
+fonttools==4.38.0
+fs==2.4.16
+gast==0.5.2
+gpiozero==2.0.1
+html5lib==1.1
+idna==3.3
+iniparse==0.5
+itsdangerous==2.2.0
+Jinja2==3.1.6
+kiwisolver==0.0.0
+lgpio==0.2.2.0
+lxml==4.9.2
+lz4==4.0.2+dfsg
+Mako==1.2.4.dev0
+Markdown==3.4.1
+MarkupSafe==3.0.3
+matplotlib==3.6.3
+mpmath==0.0.0
+mutagen==1.46.0
+netaddr==0.8.0
+numpy==1.24.2
+olefile==0.46
+packaging==23.0
+pathvalidate==2.5.0
+pigpio==1.78
+Pillow==9.4.0
+platformdirs==2.6.0
+ply==3.11
+pycryptodomex==3.11.0
+Pygments==2.14.0
+pyparsing==3.0.9
+pyserial==3.5
+python-apt==2.6.0
+python-dateutil==2.8.2
+pythran==0.11.0
+pytz==2022.7.1
+pyxattr==0.8.1
+PyYAML==6.0
+requests==2.26.0
+rpi-keyboard-config==1.0
+rpi-lgpio==0.6
+sarge==0.1.6
+scipy==1.10.1
+sentry-sdk==1.23.1
+six==1.16.0
+smbus2==0.4.2
+soupsieve==2.3.2
+spidev==3.5
+ssh-import-id==5.10
+sympy==1.11.1
+toml==0.10.2
+ufoLib2==0.14.0
+urllib3==1.26.12
+virtualenv==20.17.1+ds
+webencodings==0.5.1
+websocket-client==1.2.1
+websockets==10.4
+Werkzeug==3.1.5
+yt-dlp==2023.3.4
+
+
+================================================================
+=== MOONRAKER.ASVC (auto-approved services list)
+================================================================
+klipper_mcu
+webcamd
+MoonCord
+KlipperScreen
+moonraker-telegram-bot
+moonraker-obico
+sonar
+crowsnest
+octoeverywhere
+ratos-configurator
+
+================================================================
+=== CROWSNEST / SONAR CONFIG SUMMARY
+================================================================
+--- crowsnest.conf (first 60 lines) ---
+#### crowsnest.conf
+#### This is the default config after installation.
+#### It is also used as the default config in MainsailOS.
+#### For details on how to configure this to your needs, see:
+#### https://github.com/mainsail-crew/crowsnest/blob/master/README.md
+
+
+#####################################################################
+####                                                            #####
+####      Information about ports and according URL's           #####
+####                                                            #####
+#####################################################################
+####                                                            #####
+####    Port 8080 equals /webcam/?action=[stream/snapshot]      #####
+####    Port 8081 equals /webcam2/?action=[stream/snapshot]     #####
+####    Port 8082 equals /webcam3/?action=[stream/snapshot]     #####
+####    Port 8083 equals /webcam4/?action=[stream/snapshot]     #####
+####                                                            #####
+####    Note: These ports are default for most Mainsail         #####
+####    installations. Using any other port would involve       #####
+####    changing the proxy configuration or using URLs          #####
+####    with the specific port like                             #####
+####    http://<ip>:<port>/?action=[stream/snapshot]            #####
+####                                                            #####
+#####################################################################
+####    RTSP Stream URL: ( if enabled and supported )           #####
+####    rtsp://<ip>:<rtsp_port>/stream.h264                     #####
+#####################################################################
+
+
+[crowsnest]
+log_path: /home/adam/printer_data/logs/crowsnest.log
+log_level: verbose                      # Valid Options are quiet/verbose/debug
+delete_log: false                       # Deletes log on every restart, if set to true
+no_proxy: false                         # If set to true, no reverse proxy is required. Only change this, if you know what you are doing.
+
+[cam 1]
+mode: ustreamer                         # ustreamer - Provides MJPG and snapshots. (All devices)
+                                        # camera-streamer - Provides WebRTC, MJPG and snapshots. (only RPiOS + RPi 0/1/2/3/4)
+port: 8080                              # HTTP/MJPG stream/snapshot port
+device: /dev/video0                     # See log for available devices
+resolution: 640x480                     # <width>x<height> format
+max_fps: 15                             # If hardware supports it, it will be forced, otherwise ignored/coerced.
+#custom_flags:                          # You can run the stream services with custom flags.
+#v4l2ctl:                               # Add v4l2-ctl parameters to setup your camera, see log for your camera capabilities.
+
+================================================================
+=== CRONTAB
+================================================================
+  (no user crontab)
+
+--- /etc/cron.d ---
+total 16
+drwxr-xr-x   2 root root 4096 Oct  1  2025 .
+drwxr-xr-x 108 root root 4096 Apr  5 21:07 ..
+-rw-r--r--   1 root root  202 Jun  6  2025 e2scrub_all
+-rw-r--r--   1 root root  102 Mar  2  2023 .placeholder
+
+================================================================
+=== LISTENING PORTS
+================================================================
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                          
+LISTEN 0      128          0.0.0.0:22         0.0.0.0:*                                    
+LISTEN 0      511          0.0.0.0:80         0.0.0.0:*                                    
+LISTEN 0      4096       127.0.0.1:17730      0.0.0.0:*    users:(("janus",pid=1539,fd=14))
+LISTEN 0      128        127.0.0.1:8080       0.0.0.0:*    users:(("main",pid=1308,fd=7))  
+LISTEN 0      128          0.0.0.0:7125       0.0.0.0:*    users:(("python",pid=915,fd=18))
+LISTEN 0      128             [::]:22            [::]:*                                    
+
+================================================================
+=== KIAUH STATE (if available)
+================================================================
+kiauh found at /home/adam/kiauh
+  commit: 09a5d96b6339b9f0477b1dc58daadaf411e55416
+  date: 2026-02-03 20:46:24 +0100
+
+================================================================
+=== BEACON PROBE FIRMWARE (if beacon installed)
+================================================================
+total 216
+drwxr-xr-x  4 adam adam   4096 Mar 22 22:51 .
+drwx--x--- 25 adam adam   4096 Apr 10 12:22 ..
+-rw-r--r--  1 adam adam 146285 Mar 22 22:51 beacon.py
+drwxr-xr-x  2 adam adam   4096 Mar 22 22:51 firmware
+drwxr-xr-x  8 adam adam   4096 Apr  7 03:07 .git
+-rwxr-xr-x  1 adam adam    958 Mar 22 22:51 install.sh
+-rw-r--r--  1 adam adam  35149 Mar 22 22:51 LICENSE
+-rw-r--r--  1 adam adam   1084 Mar 22 22:51 README.md
+-rw-r--r--  1 adam adam     88 Mar 22 22:51 requirements.txt
+-rwxr-xr-x  1 adam adam   6746 Mar 22 22:51 update_firmware.py
+
+================================================================
+=== KLIPPER EXTRAS (plugins/extras)
+================================================================
+ad5206.py			 hall_filament_width_sensor.py	  query_adc.py
+adc_scaled.py			 heater_bed.py			  query_endstops.py
+adc_temperature.py		 heater_fan.py			  replicape.py
+ads1220.py			 heater_generic.py		  resonance_tester.py
+ads1x1x.py			 heaters.py			  respond.py
+adxl345.py			 homing_heaters.py		  safe_z_home.py
+aht10.py			 homing_override.py		  samd_sercom.py
+angle.py			 homing.py			  save_variables.py
+axis_twist_compensation.py	 htu21d.py			  screws_tilt_adjust.py
+beacon.py			 hx71x.py			  sdcard_loop.py
+bed_mesh.py			 icm20948.py			  servo.py
+bed_screws.py			 idle_timeout.py		  shaper_calibrate.py
+bed_tilt.py			 __init__.py			  shaper_defs.py
+bltouch.py			 input_shaper.py		  sht3x.py
+bme280.py			 ldc1612.py			  skew_correction.py
+bmi160.py			 led_effect.py			  smart_effector.py
+board_pins.py			 led.py				  spi_temperature.py
+bulk_sensor.py			 lis2dw.py			  static_digital_output.py
+bus.py				 lis3dh.py			  static_pwm_clock.py
+buttons.py			 lm75.py			  statistics.py
+canbus_ids.py			 load_cell_probe.py		  stepper_enable.py
+canbus_stats.py			 load_cell.py			  sx1509.py
+controller_fan.py		 manual_probe.py		  temperature_combined.py
+dac084S085.py			 manual_stepper.py		  temperature_fan.py
+delayed_gcode.py		 mcp4018.py			  temperature_host.py
+delta_calibrate.py		 mcp4451.py			  temperature_mcu.py
+display				 mcp4728.py			  temperature_probe.py
+display_status.py		 motion_queuing.py		  temperature_sensor.py
+dotstar.py			 motion_report.py		  temperature_sensors.cfg
+ds18b20.py			 mpu9250.py			  thermistor.py
+duplicate_pin_override.py	 multi_pin.py			  tmc2130.py
+endstop_phase.py		 neopixel.py			  tmc2208.py
+error_mcu.py			 output_pin.py			  tmc2209.py
+exclude_object.py		 palette2.py			  tmc2240.py
+extruder_stepper.py		 pause_resume.py		  tmc2660.py
+fan_generic.py			 pca9533.py			  tmc5160.py
+fan.py				 pca9632.py			  tmc.py
+filament_motion_sensor.py	 pid_calibrate.py		  tmc_uart.py
+filament_switch_sensor.py	 print_stats.py			  trigger_analog.py
+firmware_retraction.py		 probe_eddy_current.py		  tsl1401cl_filament_width_sensor.
+force_move.py			 probe.py			  tuning_tower.py
+garbage_collection.py		 pulse_counter.py		  verify_heater.py
+gcode_arcs.py			 pwm_cycle_time.py		  virtual_sdcard.py
+gcode_button.py			 pwm_tool.py			  z_thermal_adjust.py
+gcode_macro.py			 __pycache__			  z_tilt.py
+gcode_move.py			 quad_gantry_level.py
+
+================================================================
+=== DMESG — LAST 50 LINES
+================================================================
+[50912.403941] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[50912.404279] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[56967.549975] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[56967.550310] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[57814.398492] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[57814.398827] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[63571.391341] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[63571.391681] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[69822.806022] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[69822.806360] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[71838.152714] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[71838.153374] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[72767.970315] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[72767.970884] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[74571.208521] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[74571.209167] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[84834.161075] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[84834.161650] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[87608.580008] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[87608.580344] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[96248.708939] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[96248.709280] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[106426.954563] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[106426.954899] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[172226.206702] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[172226.207034] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[181384.220951] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[181384.221459] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[212548.803229] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[212548.803560] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[222064.584962] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[222064.585300] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[229103.779061] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[229103.779642] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[234658.953445] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[234658.953785] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[238740.053951] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[238740.054487] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[243099.856812] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[243099.857150] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[253905.732483] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[253905.733085] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[337293.786853] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[337293.787188] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[338241.484987] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[338241.485541] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[339646.321139] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[339646.321474] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+[366457.767682] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Command time (outvact): 33
+[366457.768021] drm-rp1-dsi 1f00130000.dsi: [drm] rp1dsi: Nominal Byte clock 90000000 DPI clock 30000000 (parent rate 90000000)
+
+================================================================
+=== END OF CAPTURE
+================================================================
+Done: 2026-04-10T11:30:25Z

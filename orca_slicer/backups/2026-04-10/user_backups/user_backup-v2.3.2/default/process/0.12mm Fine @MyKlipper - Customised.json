@@ -1,0 +1,38 @@
+{
+    "from": "User",
+    "inherits": "0.12mm Fine @MyKlipper",
+    "initial_layer_print_height": "0.25",
+    "ironing_angle": "90",
+    "ironing_angle_fixed": "1",
+    "ironing_flow": "21%",
+    "ironing_spacing": "0.1",
+    "ironing_type": "top",
+    "layer_height": "0.2",
+    "name": "0.12mm Fine @MyKlipper - Customised",
+    "outer_wall_speed": "80",
+    "print_extruder_id": [
+        "1"
+    ],
+    "print_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "print_settings_id": "0.12mm Fine @MyKlipper - Customised",
+    "scarf_joint_speed": "50%",
+    "seam_gap": "0",
+    "seam_position": "aligned_back",
+    "seam_slope_conditional": "1",
+    "seam_slope_steps": "20",
+    "seam_slope_type": "all",
+    "skirt_loops": "2",
+    "sparse_infill_density": "20%",
+    "sparse_infill_pattern": "adaptivecubic",
+    "support_threshold_angle": "20",
+    "support_type": "tree(auto)",
+    "top_shell_layers": "5",
+    "version": "2.0.2.0",
+    "wall_direction": "ccw",
+    "wall_loops": "4",
+    "wall_sequence": "inner-outer-inner wall",
+    "wipe_before_external_loop": "1",
+    "wipe_on_loops": "1"
+}

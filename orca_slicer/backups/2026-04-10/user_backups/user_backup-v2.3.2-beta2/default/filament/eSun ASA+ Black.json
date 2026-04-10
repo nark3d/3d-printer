@@ -1,0 +1,76 @@
+{
+    "compatible_printers": [
+        "MyKlipper 0.4 nozzle"
+    ],
+    "default_filament_colour": [
+        "#040404"
+    ],
+    "enable_pressure_advance": [
+        "1"
+    ],
+    "eng_plate_temp": [
+        "110"
+    ],
+    "eng_plate_temp_initial_layer": [
+        "120"
+    ],
+    "fan_max_speed": [
+        "15"
+    ],
+    "filament_deretraction_speed": [
+        "23"
+    ],
+    "filament_flow_ratio": [
+        "0.975"
+    ],
+    "filament_max_volumetric_speed": [
+        "10"
+    ],
+    "filament_retraction_length": [
+        "0.5"
+    ],
+    "filament_retraction_minimum_travel": [
+        "1.5"
+    ],
+    "filament_retraction_speed": [
+        "30"
+    ],
+    "filament_settings_id": [
+        "eSun ASA+ Black"
+    ],
+    "filament_vendor": [
+        "eSun"
+    ],
+    "filament_wipe": [
+        "0"
+    ],
+    "filament_wipe_distance": [
+        "0.6"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "110"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "120"
+    ],
+    "inherits": "Generic ASA @System",
+    "is_custom_defined": "0",
+    "name": "eSun ASA+ Black",
+    "nozzle_temperature_initial_layer": [
+        "265"
+    ],
+    "overhang_fan_speed": [
+        "0"
+    ],
+    "pressure_advance": [
+        "0.032"
+    ],
+    "textured_plate_temp": [
+        "110"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "120"
+    ],
+    "version": "2.3.1.10"
+}
