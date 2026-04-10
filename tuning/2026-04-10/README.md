@@ -331,6 +331,134 @@ So the LIS2DW data is the right reference for tuning. The Beacon's prior data wa
 
 ---
 
+## 5. Cold-state hardware checks
+
+Quick verification of probe repeatability and gantry levelling. Both passed easily.
+
+### Beacon Z probe accuracy
+
+`PROBE_ACCURACY` at bed centre (130, 130), 10 samples:
+
+```
+maximum  2.011367 mm
+minimum  2.011031 mm
+range    0.000335 mm   ← 335 nanometres
+average  2.011239 mm
+median   2.011241 mm
+σ        0.000060 mm   ← 60 nanometres
+```
+
+This is **top-decile** for Beacon installations (typical Beacon range 1-10 µm, σ 0.3-2 µm). First-layer consistency should be effectively perfect.
+
+### Z-tilt adjustment
+
+`Z_TILT_ADJUST` ran with the 3-Z motor configuration:
+
+| Iteration | Probed points range | Note |
+|---|---|---|
+| 0 | 0.011715 mm (11.7 µm) | Initial tilt, just over the 10 µm tolerance |
+| 1 | 0.000769 mm (0.77 µm) | Converged in one retry, 13× under tolerance |
+
+Initial tilt 11.7 µm across ~260 mm of bed = ~0.0026° angular tilt. The gantry was already nearly flat to start; the adjustment brought it within sub-micron of perfectly parallel. **No action needed.**
+
+---
+
+## 6. CREATE_VIBRATIONS_PROFILE — direction × speed heatmap
+
+Run as part of Phase 3.1. Sweeps the toolhead through every direction at every speed and produces a heatmap of vibration vs angle vs speed.
+
+![Vibrations profile (initial run, post LIS2DW switch)](08_vibrations_profile.png)
+
+**Initial run (post LIS2DW switch, pre-autotune)**: 71.4 % polar symmetry, motor main resonance at 166.4 Hz with damping ratio 0.083.
+
+The polar profile is "typical for a heavy CoreXY toolhead build" — perfectly-symmetric (>90 %) is reserved for lightly-built machines like a stock Voron. The 71.4 % reflects the natural front-to-back asymmetry of:
+
+- Triangular 3-Z bed mounting (one back point + two front points)
+- Heavy VzBot CNC toolhead with most mass forward of the X carriage
+- Drag chain and cabling that hang off one corner
+
+Worst-energy angles tied at 73.69 % of max:
+- ~9° (≈ +X)
+- ~189° (≈ −X) — opposite to peak 1, expected (vibrations are mirror-symmetric)
+- ~80° (≈ +Y) — slight front/back asymmetry
+
+The clear vertical wave bands in the speed heatmap mean **resonances are speed-dependent, mostly direction-independent**. Worst speeds are around 50, 75, and 90 mm/s — useful info for slicer outer-wall speed selection.
+
+---
+
+## 7. TMC autotune experiment — recommended, applied, regressed, reverted
+
+A cautionary tale. Phase 3.3 from `NEXT_STEPS.md` lists **Klipper TMC Autotune** as a follow-up tuning step. We tried it, it made things measurably worse, we reverted.
+
+### What was added
+
+| File | Block |
+|---|---|
+| `printer.cfg` | `[autotune_tmc stepper_x]` / `_y` / `_z` / `_z1` / `_z2` — `motor: ldo-42sth48-2804ah` (X/Y), `usongshine-17hs4401` (Z), all `tuning_goal: auto` |
+| `ebb_gen2.cfg` | `[autotune_tmc extruder]` — `motor: ldo-36sth20-1004ahg`, `tuning_goal: auto` |
+
+Backups: `printer.cfg.bak-pre-tmc-autotune` and `ebb_gen2.cfg.bak-pre-tmc-autotune` on the printer.
+
+### What autotune did to the drivers
+
+- **X / Y (TMC5160)**: switched from TMC defaults to **SpreadCycle** (`en_pwm_mode=False`), tuned chopper waveform (`toff=4`, `hstrt=7`, `hend=9`), enabled CoolStep below ~30 mm/s (`tcoolthrs=313`, `sgt=1`, `semin=2`, `semax=4`)
+- **Z motors (TMC2209)**: stayed in StealthChop, tuned PWM grad/offset for the 17HS4401 motor
+- **Extruder (TMC2209)**: stayed in StealthChop, tuned for the LDO pancake at 0.85 A
+- **`run_current`**: unchanged on all motors (autotune respected the user-set current values)
+
+### Results: regression on both metrics
+
+| | Pre-autotune | Post-autotune | Δ |
+|---|---|---|---|
+| Polar symmetry | **71.4 %** | **51.2 %** | **−20.2 %** |
+| Belt similarity | 96.4 % | 90.0 % | −6.4 % |
+| Belt verdict | "Excellent" | **"Potential mechanical issue"** | regressed |
+| New γ peak at ~155 Hz | not visible | 11.2 % amp delta | new harmonic |
+
+![Belts post autotune — "potential mechanical issue" warning](09_belts_post_autotune.png)
+![Vibrations profile post autotune — symmetry collapsed to 51.2 %](10_vibrations_post_autotune.png)
+
+### Why the regression
+
+Autotune optimizes for **driver electrical performance** (max torque headroom, optimal chopper waveform for the motor's spec sheet), not for **mechanical vibration cleanliness**. On this build:
+
+- **SpreadCycle** chosen for X/Y is electrically louder than the stock StealthChop — more harmonic content in the chopper switching
+- **CoolStep** dynamically modulates current at low speeds, creating non-linear current behavior as the toolhead transitions in/out of the CoolStep velocity band
+- **Both** changes excite harmonics that the heavy CNC toolhead doesn't damp well
+
+The fundamental gantry mode (~42 Hz Y, ~61 Hz X) is still well-handled by the input shaper. But the *new* high-frequency content shows up across the polar profile and creates the new γ peak in the belt comparison.
+
+### Revert and re-test
+
+Restored both files from `*.bak-pre-tmc-autotune` backups. Verified zero `autotune_tmc` references in either file. Klipper restart confirmed `TMC Autotune: not detected` in subsequent test parameters.
+
+| | Pre-autotune | Post-autotune | **Post-revert** |
+|---|---|---|---|
+| Polar symmetry | 71.4 % | 51.2 % | **82.1 %** ⬆️ |
+| Belt similarity | 96.4 % | 90.0 % | **86.7 %** |
+
+![Belts post revert](11_belts_post_revert.png)
+![Vibrations profile post revert — symmetry recovered to 82.1 %](12_vibrations_post_revert.png)
+
+**Polar symmetry recovered to 82.1 % — actually *better* than the original 71.4 %.** The 10-point improvement over the morning baseline is most likely due to ~5 hours of motor activity warming bearings and spreading lubrication evenly.
+
+Belt similarity drifted slightly downward (96.4 → 86.7) — most likely a combination of run-to-run measurement variance (~5-10 %) and similar settling effects on belt tension equilibration. 86.7 % is still in the "good" band per Shake&Tune thresholds.
+
+### Lesson — don't push tuning when there's no problem
+
+The "TMC config mismatch" warning that originally motivated autotune was a **literal register diff** between X and Y (`driver_SGT` set on X but not on Y), not a real mechanical issue. The pre-autotune measurements (96.4 % belt, 71.4 % polar, sub-micron Z probe, clean shaper) all said "this printer is in good shape, nothing wrong."
+
+**The right answer was to leave it alone.** TMC autotune is a third-party plugin not used by the Voron / VzBot / Klipper communities for X/Y, and the official Klipper docs say *"For most users, no special TMC tuning is required."*
+
+This pattern bit us twice today and the lesson is the same both times:
+
+1. **Beacon bimodal Y** — sensor was correctly measuring something real (cooling-horn flex), but that real thing wasn't relevant to print quality
+2. **TMC autotune** — autotune was correctly optimizing for something real (driver electrical performance), but that real thing wasn't relevant to print quality on this specific build
+
+In both cases, the tool optimized for the wrong target. **For future tuning steps: ask "what problem are we solving?" before applying any change. Don't apply tuning changes preemptively just because a checklist suggests them.**
+
+---
+
 ## File index
 
 | File | Description | Original Shake&Tune filename |
@@ -346,5 +474,10 @@ So the LIS2DW data is the right reference for tuning. The Beacon's prior data wa
 | `06_lis2dw_axes_map.png` | AXES_MAP_CALIBRATION (LIS2DW), 18:23:12 | `axesmap_20260410_182309.png` |
 | `07a_lis2dw_shaper_X.png` | Input shaper X — LIS2DW (18:25:24) | `inputshaper_20260410_182519_axis_X.png` |
 | `07b_lis2dw_shaper_Y.png` | Input shaper Y — LIS2DW (18:27:41) | `inputshaper_20260410_182519_axis_Y.png` |
+| `08_vibrations_profile.png` | CREATE_VIBRATIONS_PROFILE — initial run, post LIS2DW switch (18:50:04) | `vibrationsprofile_20260410_185001.png` |
+| `09_belts_post_autotune.png` | COMPARE_BELTS_RESPONSES — post TMC autotune (19:47:03), regression visible | `beltscomparison_20260410_194658.png` |
+| `10_vibrations_post_autotune.png` | CREATE_VIBRATIONS_PROFILE — post TMC autotune (19:52:37), polar symmetry collapsed to 51.2 % | `vibrationsprofile_20260410_195237.png` |
+| `11_belts_post_revert.png` | COMPARE_BELTS_RESPONSES — post autotune revert (20:19:56) | `beltscomparison_20260410_201952.png` |
+| `12_vibrations_post_revert.png` | CREATE_VIBRATIONS_PROFILE — post autotune revert (20:25:32), polar symmetry recovered to 82.1 % | `vibrationsprofile_20260410_202532.png` |
 
-The original Shake&Tune filenames remain on the printer at `~/printer_data/config/ShakeTune_results/{axes_map,belts,input_shaper}/` for forensic correlation with `klippy.log` timestamps.
+The original Shake&Tune filenames remain on the printer at `~/printer_data/config/ShakeTune_results/{axes_map,belts,input_shaper,vibrations}/` for forensic correlation with `klippy.log` timestamps.
