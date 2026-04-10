@@ -481,3 +481,38 @@ In both cases, the tool optimized for the wrong target. **For future tuning step
 | `12_vibrations_post_revert.png` | CREATE_VIBRATIONS_PROFILE — post autotune revert (20:25:32), polar symmetry recovered to 82.1 % | `vibrationsprofile_20260410_202532.png` |
 
 The original Shake&Tune filenames remain on the printer at `~/printer_data/config/ShakeTune_results/{axes_map,belts,input_shaper,vibrations}/` for forensic correlation with `klippy.log` timestamps.
+
+---
+
+## Postscript — corrected understanding (added after end of session)
+
+Two epistemic corrections applied after Adam pushed back at the end of the session. Recording them here so the body of this report (which makes confident claims) can be read alongside the corrections.
+
+### Correction 1: Belts at 111 Hz physically — measured by Adam
+
+Adam separately measured both belts at **111 Hz** with a frequency app. Belt tension is empirically matched. Any apparent belt asymmetry from Shake&Tune's `COMPARE_BELTS_RESPONSES` after that point is **not** a tension issue. This rules out belt-tension drift as an explanation for the run-to-run drift we saw between 96.4 % (morning Beacon), 86.7 % (post-revert LIS2DW), and 87.1 % (reproducibility check LIS2DW).
+
+### Correction 2: The "Beacon mount-flex" interpretation in §4 is a hypothesis, not fact
+
+§4 of this report (LIS2DW cross-validation) presents the "Beacon-on-cooling-horns mount flex caused the bimodal Y" theory as the conclusion. **It is a plausible hypothesis but it is not proven.** I built it from one observation (Beacon shows two Y peaks, LIS2DW shows one) and started writing it as established fact in the report and in subsequent recommendations. Adam correctly called this out at the end of the session.
+
+Multiple alternative explanations remain in play — most importantly that the **LIS2DW has a hardware-fixed 200 Hz Nyquist limit** (internal 400 Hz filter), and the two chips will produce different results for high-frequency content even on identical mounts ([Klipper Discourse discussion](https://klipper.discourse.group/t/shaper-calibrate-py-and-handling-of-irregular-accelerometer-output-data-rates-lis2dw-vs-adxl345/24862)). Other plausible explanations: different physical measurement location on the same toolhead, Shake&Tune processing differences, or the Beacon correctly seeing a real toolhead pitch mode that the LIS2DW filters out.
+
+Community search did not turn up specific reports of "Beacon-on-VzBot-CNC-toolhead = bimodal Y", and the [Beacon documentation](https://docs.beacon3d.com/accel/) does not mention mount-flex as a known issue. Absence of evidence is not evidence of absence — but my confidence should have been lower than it was.
+
+**The currently-saved input shaper values (MZV X=61.0, Y=42.0, LIS2DW-derived) are still a defensible choice** because the LIS2DW is mounted closer to the rigid toolhead body where the nozzle also lives — i.e. it's likely a closer proxy for actual nozzle vibration than the Beacon at the cooling horns. But that's geometric reasoning about likely-relevant modes, not proof that the Beacon's measurement is wrong.
+
+### What would actually validate the hypothesis (deferred work)
+
+If the question becomes important enough to spend time on:
+
+1. **Tap test**: physically tap the toolhead while recording from both sensors simultaneously. Identical responses → difference is path/structure. Different responses → chip characteristics
+2. **Sensor relocation**: move the Beacon to the EBB36 position (or vice versa) and re-run. If the bimodal moves with the *sensor*, it's chip characteristics. If it moves with the *location*, it's mounting/structure
+3. **Third sensor**: mount a separate ADXL345 at yet another point and triangulate
+4. **Time-domain comparison**: bypass Shake&Tune's processing and compare raw waveforms directly
+
+None of these were done in this session. They're recorded in the session memory file `beacon_vs_lis2dw_uncertainty.md` as deferred follow-ups.
+
+### Lesson
+
+Both this and §7 (TMC autotune) are instances of the same pattern: **confident conclusions from insufficient evidence**. The right framing for any non-obvious technical claim is *"hypothesis: X. Evidence: Y. Confidence: Z. Alternative explanations: A, B, C."* — not declarative statements presented as fact.
