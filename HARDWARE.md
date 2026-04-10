@@ -115,9 +115,8 @@ CoreXY with dual-belt anchoring at the front (ZeroG-style 4-anchor termination).
 | Run current | 2.24 A | 2.24 A |
 | Sense resistor | 0.075 Ω | 0.075 Ω |
 | `interpolate` | true | true |
-| `driver_SGT` | −64 (sensorless-capable) | — |
-| Sensorless home | — | `diag0_pin: !PG9` → Y sensorless |
-| X endstop | Physical switch on EBB36 at `^!EBB36:PA15` (toolhead-mounted filament/endstop port) | — |
+| Sensorless homing | **Not used** | **Not used** |
+| Endstop | Physical switch on EBB36 at `^!EBB36:PA15` (toolhead-mounted) | Physical switch on Octopus at `!PG9` |
 | `rotation_distance` | 39.421 (calibrated) | 39.581 (calibrated) |
 | `homing_speed` | 300 mm/s | 300 mm/s |
 | `position_max` | 260 | 245 |
@@ -162,7 +161,7 @@ points:
 | Axis | Endstop | Notes |
 |---|---|---|
 | X | `^!EBB36:PA15` (physical switch on toolhead) | Moved to the EBB36 during Phase 3 |
-| Y | `!PG9` via `diag0_pin` on TMC5160 (sensorless) | — |
+| Y | `!PG9` (physical switch on Octopus Pro) | — |
 | Z | `probe:z_virtual_endstop` (Beacon) | `safe_z_home` at 135, 125 |
 
 ---
@@ -594,7 +593,7 @@ Full Python venv package lists captured in `backups/2026-04-10/system_info.txt` 
 | `PC4/PD11` | TMC5160 CS pins (X / Y) | `tmc5160 stepper_x/y` |
 | `PA7/PA6/PA5` | SPI MOSI / MISO / SCLK (software, shared) | same |
 | `PC6/PC7/PE4` | TMC2209 UART pins (Z / Z1 / Z2) | `tmc2209 stepper_z/z1/z2` |
-| `!PG9` | Y sensorless diag0 | `tmc5160 stepper_y` |
+| `!PG9` | Y physical endstop switch | `stepper_y endstop_pin` |
 | **Heaters and thermistors** | | |
 | `PA1` | Bed heater (switches SSR → Honey Badger) | `heater_bed` |
 | `PF3` | Bed thermistor (Generic 3950) | `heater_bed` |
