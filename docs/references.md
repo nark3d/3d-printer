@@ -681,7 +681,7 @@ These are Model Context Protocol servers that let AI assistants (Claude, etc.) t
 
 | Server | Scope | Maturity | Notes |
 |---|---|---|---|
-| **DMontgomery40/mcp-3D-printer-server** ⭐ **INSTALLED** | Multi-protocol: Moonraker, OctoPrint, Duet, Bambu, Prusa Connect, Creality Cloud, Repetier | **173 stars**, GPL v2, npm-installable (`npm install -g mcp-3d-printer-server`), Docker support, TypeScript 4.9+, Node 18+ | [GitHub](https://github.com/DMontgomery40/mcp-3D-printer-server) · [npm](https://www.npmjs.com/package/mcp-3d-printer-server) · [Awesome MCP listing](https://mcpservers.org/servers/DMontgomery40/mcp-3D-printer-server). Currently configured in `.mcp.json` pointing at `192.168.0.37:7125`. Activates on next Claude Code session. |
+| **DMontgomery40/mcp-3D-printer-server** ⭐ **INSTALLED** | Multi-protocol: Moonraker, OctoPrint, Duet, Bambu, Prusa Connect, Creality Cloud, Repetier | **173 stars**, GPL v2, npm-installable (`npm install -g mcp-3d-printer-server`), Docker support, TypeScript 4.9+, Node 18+ | [GitHub](https://github.com/DMontgomery40/mcp-3D-printer-server) · [npm](https://www.npmjs.com/package/mcp-3d-printer-server) · [Awesome MCP listing](https://mcpservers.org/servers/DMontgomery40/mcp-3D-printer-server). Currently configured in `.mcp.json` pointing at `192.168.x.x:7125`. Activates on next Claude Code session. |
 | Charleslotto/klipper-mcp | Klipper via Moonraker | Early / VS Code-oriented | [Glama listing](https://glama.ai/mcp/servers/@Charleslotto/klipper-mcp) · [LobeHub](https://lobehub.com/mcp/charleslotto-klipper-mcp) |
 | grego33/klipper-config-mcp | Klipper config editing | Early | [GitHub](https://github.com/grego33/klipper-config-mcp) |
 | OctoEverywhere MCP | Status/control via OctoEverywhere cloud | Vendor | [Blog post](https://blog.octoeverywhere.com/mcp-server-for-3d-printing/) — requires OctoEverywhere account |
@@ -711,9 +711,9 @@ Things specific to this machine that you'd otherwise forget:
 
 Klippy.log shows the Klipper version as `v0.13.0-540-g57c2e0c96-dirty`. This is **not a problem** — the "dirty" flag is caused by **untracked symlinks** in the working tree:
 
-- `~/klipper/klippy/extras/led_effect.py` → `/home/adam/klipper-led_effect/src/led_effect.py`
-- `~/klipper/klippy/extras/shaketune` → `/home/adam/klippain_shaketune/shaketune` (added 2026-04-10)
-- `~/klipper/klippy/extras/autotune_tmc.py` → `/home/adam/klipper_tmc_autotune/autotune_tmc.py` (added 2026-04-10)
+- `~/klipper/klippy/extras/led_effect.py` → `/home/user/klipper-led_effect/src/led_effect.py`
+- `~/klipper/klippy/extras/shaketune` → `/home/user/klippain_shaketune/shaketune` (added 2026-04-10)
+- `~/klipper/klippy/extras/autotune_tmc.py` → `/home/user/klipper_tmc_autotune/autotune_tmc.py` (added 2026-04-10)
 - `~/klipper/klippy/extras/motor_constants.py` → same repo (added 2026-04-10)
 - `~/klipper/klippy/extras/motor_database.cfg` → same repo (added 2026-04-10)
 - `~/moonraker/moonraker/components/timelapse.py` → (same pattern for moonraker-timelapse)

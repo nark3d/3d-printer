@@ -24,7 +24,7 @@ For full session detail with all measurement data, graphs, and the lessons learn
 | 4 | Per-filament Orca calibration | 🔵 Done for SUNLU PLA Matte. Re-run per new spool, not per profile |
 | 5.1 | KAMP adaptive meshing | 🔵 Already have Klipper's built-in `BED_MESH_CALIBRATE ADAPTIVE=1` in PRINT_START — KAMP's own adaptive module is essentially the same. **KAMP's other modules** (Smart Park, Line Purge, Voron Purge) are not enabled and may be worth doing — pending Adam's decision |
 | 5.2 | KAMP Smart Park | ⛔ Pending decision (worth enabling — prevents nozzle ooze landing on print start area) |
-| 5.3 | Klipper Estimator install | ✅ Done — binary on Mac at `/Users/adamlewis/klipper_estimator`, also on printer at `~/klipper_estimator`. Orca post-processing line is in the next section |
+| 5.3 | Klipper Estimator install | ✅ Done — binary on Mac at `/Users/user/klipper_estimator`, also on printer at `~/klipper_estimator`. Orca post-processing line is in the next section |
 | 5.4 | Beacon Contact mode + thermal expansion compensation | ⏳ Deferred — bigger change worth its own session if first-layer squish varies between prints |
 
 ### Cold-state hardware health (measured 2026-04-10)
@@ -58,13 +58,13 @@ For full session detail with all measurement data, graphs, and the lessons learn
 
 ## Klipper Estimator — what to do in OrcaSlicer
 
-The binary is installed and tested. The static config file is at `/Users/adamlewis/klipper_estimator.cfg` on the Mac. To activate it for slicing:
+The binary is installed and tested. The static config file is at `/Users/user/klipper_estimator.cfg` on the Mac. To activate it for slicing:
 
 1. Open **OrcaSlicer → Printer Settings → Machine gcode → Post-processing scripts**
 2. Paste this single line:
 
 ```
-/Users/adamlewis/klipper_estimator --config_file /Users/adamlewis/klipper_estimator.cfg post-process
+/Users/user/klipper_estimator --config_file /Users/user/klipper_estimator.cfg post-process
 ```
 
 3. Save the printer profile
@@ -76,7 +76,7 @@ After that, every slice will be post-processed to overwrite the slicer's optimis
 The static cfg will go stale only if printer motion limits change (`max_velocity`, `max_accel`, `square_corner_velocity`). To re-dump (only when actually needed):
 
 ```
-ssh adam@192.168.0.37 "~/klipper_estimator --config_moonraker_url http://localhost:7125 dump-config" > /Users/adamlewis/klipper_estimator.cfg
+ssh user@192.168.x.x "~/klipper_estimator --config_moonraker_url http://localhost:7125 dump-config" > /Users/user/klipper_estimator.cfg
 ```
 
 (The dump runs on the printer where Moonraker is local and reliable — the flakiness is the Mac↔printer network path during slice time, not the printer itself.)
@@ -142,14 +142,14 @@ Things on the "could do later" list but not priorities:
 - **`tuning/2026-04-10/`** — full Shake&Tune baseline session: 14 PNGs, README with 7 sections, lessons learned
 - **`backups/2026-04-10/`** — pre-plugin config snapshot (printer.cfg history, system_info.txt, logs)
 - **`orca_slicer/backups/2026-04-10/`** — OrcaSlicer profile snapshot
-- **`.mcp.json`** — `mcp-3d-printer-server` config for the printer at 192.168.0.37
+- **`.mcp.json`** — `mcp-3d-printer-server` config for the printer at 192.168.x.x
 
 ### Memory (outside repo, persists across sessions)
 
-- `~/.claude/projects/-Users-adamlewis-Repos-3d-printer/memory/relay_trip_gotcha.md`
-- `~/.claude/projects/-Users-adamlewis-Repos-3d-printer/memory/chamber_pid_skip.md`
-- `~/.claude/projects/-Users-adamlewis-Repos-3d-printer/memory/dont_push_unneeded_tuning.md`
-- `~/.claude/projects/-Users-adamlewis-Repos-3d-printer/memory/beacon_vs_lis2dw_uncertainty.md`
+- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/relay_trip_gotcha.md`
+- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/chamber_pid_skip.md`
+- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/dont_push_unneeded_tuning.md`
+- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/beacon_vs_lis2dw_uncertainty.md`
 
 ### On the printer
 
@@ -164,17 +164,17 @@ Things on the "could do later" list but not priorities:
 
 ### On the Mac
 
-- `/Users/adamlewis/klipper_estimator` — Mac-side klipper_estimator binary (v3.7.3, x86_64 via Rosetta 2)
-- `/Users/adamlewis/Repos/3d-printer/` — this repo
+- `/Users/user/klipper_estimator` — Mac-side klipper_estimator binary (v3.7.3, x86_64 via Rosetta 2)
+- `/Users/user/Repos/3d-printer/` — this repo
 
 ### Key connection details
 
-- Printer SSH: `ssh adam@192.168.0.37` (key-based, no password)
+- Printer SSH: `ssh user@192.168.x.x` (key-based, no password)
 - `sudo` requires password — non-interactive ssh-via-script for `sudo reboot` does NOT work; use Moonraker's `POST /machine/reboot` or run interactively
-- Moonraker API: `http://192.168.0.37:7125`
-- Mainsail web UI: `http://192.168.0.37/`
+- Moonraker API: `http://192.168.x.x:7125`
+- Mainsail web UI: `http://192.168.x.x/`
 - KlipperScreen: Waveshare 5" DSI on the Pi
-- Mac IP (trusted by Moonraker): 192.168.0.43
+- Mac IP (trusted by Moonraker): 192.168.x.x
 
 ---
 

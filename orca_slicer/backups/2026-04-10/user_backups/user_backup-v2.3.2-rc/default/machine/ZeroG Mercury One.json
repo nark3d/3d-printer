@@ -37,7 +37,7 @@
     "nozzle_type": [
         "hardened_steel"
     ],
-    "print_host": "192.168.0.37",
+    "print_host": "192.168.x.x",
     "printable_area": [
         "0x0",
         "260x0",

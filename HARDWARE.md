@@ -46,7 +46,7 @@
 | Air filtration | **BentoBox** carbon filter with 4028 fans |
 | Screen | Waveshare 5″ capacitive DSI touchscreen |
 | Remote | Mainsail + Moonraker-Obico |
-| Network | Wi-Fi only, `3d-printer` on 192.168.0.37 |
+| Network | Wi-Fi only, `3d-printer` on 192.168.x.x |
 
 ---
 
@@ -327,7 +327,7 @@ This estimate is why Y=43.4 Hz is a reasonable input shaper frequency: a heavier
 | RAM | 8 GB |
 | OS | Debian GNU/Linux 12 (bookworm), kernel 6.12.47+rpt-rpi-2712 (2025-09-16) |
 | Storage | 117 GB SD card (35 GB used / 77 GB free) |
-| Network | Wi-Fi only (eth0 down), `192.168.0.37`, hostname `3d-printer` |
+| Network | Wi-Fi only (eth0 down), `192.168.x.x`, hostname `3d-printer` |
 | Temperature reporting | `temperature_sensor raspberry_pi` via `temperature_host` |
 | Installed via | **kiauh** v6.1.0 |
 
@@ -516,7 +516,7 @@ The file has commented-out placeholders for `tool_logo`, `tool_printing`, `tool_
 
 - Bundled web UI served by nginx on port 80 of the Pi
 - Mainsail installed at `~/mainsail` (built from release, no git — last updated Feb 16 2026)
-- Includes file served from `/home/adam/mainsail-config/mainsail.cfg` (git repo, tracks upstream master)
+- Includes file served from `/home/user/mainsail-config/mainsail.cfg` (git repo, tracks upstream master)
 
 ### Moonraker + Moonraker-Obico
 
@@ -535,8 +535,8 @@ The file has commented-out placeholders for `tool_logo`, `tool_printing`, `tool_
 | Camera | **Arducam 1080P 2MP IR-Cut Day/Night USB** (Microdia Vitade AF in the USB device ID) |
 | Interface | USB 2.0 |
 | Driver | crowsnest / ustreamer |
-| Stream | `http://192.168.0.37/webcam/?action=stream`, 640×480 @ 15 fps |
-| Snapshot | `http://192.168.0.37/webcam/?action=snapshot` |
+| Stream | `http://192.168.x.x/webcam/?action=stream`, 640×480 @ 15 fps |
+| Snapshot | `http://192.168.x.x/webcam/?action=snapshot` |
 | Special features | Auto IR-cut day/night switching, IR LEDs for low-light |
 | Mounting | **TBD — confirm position and aim** (visible in photo at top of frame) |
 

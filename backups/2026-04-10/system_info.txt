@@ -3,7 +3,7 @@
 === BACKUP METADATA
 ================================================================
 Date captured: 2026-04-10T11:30:22Z (UTC)
-Captured from: adam@3d-printer (192.168.0.37 )
+Captured from: user@3d-printer (192.168.x.x )
 
 ================================================================
 === OS / KERNEL / HARDWARE
@@ -55,11 +55,11 @@ Filesystem      Size  Used Avail Use% Mounted on
 === NETWORK
 ================================================================
 3d-printer
-192.168.0.37 
+192.168.x.x 
 
 lo               UNKNOWN        127.0.0.1/8 ::1/128 
 eth0             DOWN           
-wlan0            UP             192.168.0.37/24 fe80::4ffb:6c18:d9:4cc6/64 
+wlan0            UP             192.168.x.x/24 fe80::x:x:x:x/64 
 
 --- CAN bus interfaces ---
   (none)
@@ -151,9 +151,9 @@ WantedBy=multi-user.target
 Type=simple
 User=adam
 RemainAfterExit=yes
-WorkingDirectory=/home/adam/klipper
-EnvironmentFile=/home/adam/printer_data/systemd/klipper.env
-ExecStart=/home/adam/klippy-env/bin/python $KLIPPER_ARGS
+WorkingDirectory=/home/user/klipper
+EnvironmentFile=/home/user/printer_data/systemd/klipper.env
+ExecStart=/home/user/klippy-env/bin/python $KLIPPER_ARGS
 Restart=always
 RestartSec=10
 
@@ -173,8 +173,8 @@ Type=simple
 User=adam
 SupplementaryGroups=moonraker-admin
 RemainAfterExit=yes
-EnvironmentFile=/home/adam/printer_data/systemd/moonraker.env
-ExecStart=/home/adam/moonraker-env/bin/python $MOONRAKER_ARGS
+EnvironmentFile=/home/user/printer_data/systemd/moonraker.env
+ExecStart=/home/user/moonraker-env/bin/python $MOONRAKER_ARGS
 Restart=always
 RestartSec=10
 
@@ -199,9 +199,9 @@ Restart=always
 RestartSec=2
 User=adam
 SupplementaryGroups=klipperscreen
-WorkingDirectory=/home/adam/KlipperScreen
-Environment="KS_XCLIENT=/home/adam/.KlipperScreen-env/bin/python /home/adam/KlipperScreen/screen.py" BACKEND=X
-ExecStart="/home/adam/KlipperScreen/scripts/KlipperScreen-start.sh"
+WorkingDirectory=/home/user/KlipperScreen
+Environment="KS_XCLIENT=/home/user/.KlipperScreen-env/bin/python /home/user/KlipperScreen/screen.py" BACKEND=X
+ExecStart="/home/user/KlipperScreen/scripts/KlipperScreen-start.sh"
 
 # Log this user with utmp, letting it show up with commands 'w' and
 # 'who'. This is needed since we replace (a)getty.
@@ -245,8 +245,8 @@ WantedBy=multi-user.target
 Type=simple
 User=adam
 RemainAfterExit=Yes
-WorkingDirectory=/home/adam/crowsnest
-EnvironmentFile=/home/adam/printer_data/systemd/crowsnest.env
+WorkingDirectory=/home/user/crowsnest
+EnvironmentFile=/home/user/printer_data/systemd/crowsnest.env
 ExecStart=/usr/local/bin/crowsnest $CROWSNEST_ARGS
 Restart=on-failure
 RestartSec=5
@@ -273,7 +273,7 @@ WantedBy=multi-user.target
 
 [Service]
 Type=exec
-EnvironmentFile=/home/adam/printer_data/systemd/sonar.env
+EnvironmentFile=/home/user/printer_data/systemd/sonar.env
 ExecStart=/usr/bin/python3 $SONAR_ARGS
 Restart=on-failure
 RestartSec=5
@@ -291,8 +291,8 @@ WantedBy=multi-user.target
 [Service]
 Type=simple
 User=adam
-WorkingDirectory=/home/adam/moonraker-obico
-ExecStart=/home/adam/moonraker-obico/../moonraker-obico-env/bin/python3 -m moonraker_obico.app -c /home/adam/printer_data/config/moonraker-obico.cfg
+WorkingDirectory=/home/user/moonraker-obico
+ExecStart=/home/user/moonraker-obico/../moonraker-obico-env/bin/python3 -m moonraker_obico.app -c /home/user/printer_data/config/moonraker-obico.cfg
 Restart=always
 RestartSec=5
 
@@ -623,7 +623,7 @@ ratos-configurator
 
 
 [crowsnest]
-log_path: /home/adam/printer_data/logs/crowsnest.log
+log_path: /home/user/printer_data/logs/crowsnest.log
 log_level: verbose                      # Valid Options are quiet/verbose/debug
 delete_log: false                       # Deletes log on every restart, if set to true
 no_proxy: false                         # If set to true, no reverse proxy is required. Only change this, if you know what you are doing.
@@ -664,7 +664,7 @@ LISTEN 0      128             [::]:22            [::]:*
 ================================================================
 === KIAUH STATE (if available)
 ================================================================
-kiauh found at /home/adam/kiauh
+kiauh found at /home/user/kiauh
   commit: 09a5d96b6339b9f0477b1dc58daadaf411e55416
   date: 2026-02-03 20:46:24 +0100
 

@@ -74,9 +74,9 @@ system_dependencies = resources/system-dependencies.json
 
 [update_manager moonraker-obico]
 type = git_repo
-path = /home/adam/moonraker-obico
+path = /home/user/moonraker-obico
 origin = https://github.com/TheSpaghettiDetective/moonraker-obico.git
-env = /home/adam/moonraker-obico/../moonraker-obico-env/bin/python
+env = /home/user/moonraker-obico/../moonraker-obico-env/bin/python
 requirements = requirements.txt
 install_script = install.sh
 managed_services = 

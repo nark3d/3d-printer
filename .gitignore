@@ -3,3 +3,6 @@
 
 # Printer logs — pulled for inspection, not versioned
 backups/*/logs/
+
+# Local MCP server config with printer IP — do not commit
+.mcp.json

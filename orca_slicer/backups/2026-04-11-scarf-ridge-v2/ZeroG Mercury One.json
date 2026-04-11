@@ -1,0 +1,103 @@
+{
+    "bed_mesh_max": "255,240",
+    "bed_mesh_min": "5,36",
+    "before_layer_change_gcode": ";BEFORE_LAYER_CHANGE\n;[layer_z]\n",
+    "deretraction_speed": [
+        "120"
+    ],
+    "from": "User",
+    "inherits": "MyKlipper 0.4 nozzle",
+    "machine_max_acceleration_e": [
+        "3000",
+        "5000"
+    ],
+    "machine_max_acceleration_extruding": [
+        "10000",
+        "5000"
+    ],
+    "machine_max_acceleration_retracting": [
+        "10000",
+        "5000"
+    ],
+    "machine_max_acceleration_travel": [
+        "10000",
+        "5000"
+    ],
+    "machine_max_acceleration_x": [
+        "10000",
+        "5000"
+    ],
+    "machine_max_acceleration_y": [
+        "10000",
+        "5000"
+    ],
+    "machine_max_acceleration_z": [
+        "50",
+        "50"
+    ],
+    "machine_max_jerk_e": [
+        "5",
+        "2.5"
+    ],
+    "machine_max_speed_e": [
+        "120",
+        "25"
+    ],
+    "machine_max_speed_x": [
+        "600",
+        "200"
+    ],
+    "machine_max_speed_y": [
+        "600",
+        "200"
+    ],
+    "machine_max_speed_z": [
+        "5",
+        "5"
+    ],
+    "machine_start_gcode": "PRINT_START EXTRUDER_TEMP=[nozzle_temperature_initial_layer] BED_TEMP=[bed_temperature_initial_layer_single]\n",
+    "name": "ZeroG Mercury One",
+    "nozzle_type": [
+        "hardened_steel"
+    ],
+    "print_host": "192.168.x.x",
+    "printable_area": [
+        "0x0",
+        "260x0",
+        "260x245",
+        "0x245"
+    ],
+    "printable_height": "258",
+    "printer_extruder_id": [
+        "1"
+    ],
+    "printer_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "printer_settings_id": "ZeroG Mercury One",
+    "printer_structure": "corexy",
+    "retract_lift_enforce": [
+        "Top Only"
+    ],
+    "retraction_length": [
+        "1"
+    ],
+    "retraction_minimum_travel": [
+        "3"
+    ],
+    "retraction_speed": [
+        "120"
+    ],
+    "support_multi_bed_types": "1",
+    "thumbnails": "32x32/PNG, 400x300/PNG",
+    "version": "2.0.2.0",
+    "wipe_distance": [
+        "1"
+    ],
+    "z_hop": [
+        "0.2"
+    ],
+    "z_hop_types": [
+        "Spiral Lift"
+    ]
+}
