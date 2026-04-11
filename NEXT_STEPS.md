@@ -1,8 +1,8 @@
-# Next steps — resume point after 2026-04-10 tuning session
+# Next steps — resume point after 2026-04-11 slicer tuning session
 
 > This file is the resume point for whoever picks up the project next (you, or future-Claude). Read this first. It supersedes the pre-session version of this doc.
 >
-> **Current position**: Phase 1 (mechanical sanity) and Phase 3.1 (vibrations profile) are complete. Klipper Estimator is installed. The printer is in genuinely good mechanical shape with documented baseline measurements. **The next concrete action is to run a real calibration test print** with the existing SUNLU PLA Matte profile to validate the tuning end-to-end on actual print quality.
+> **Current position**: Mechanical tuning (Phases 1-3, 2026-04-10) and OrcaSlicer tuning (Phase 6, 2026-04-11) are both at a "good enough for production" state. Ironing is fully solved. Seams are improved but paused at an acceptable-not-perfect state with documented residual issues — the user explicitly chose to stop and revisit another day. **No blocking next action** — the printer is ready for real print work.
 
 ---
 
@@ -26,6 +26,7 @@ For full session detail with all measurement data, graphs, and the lessons learn
 | 5.2 | KAMP Smart Park | ⛔ Pending decision (worth enabling — prevents nozzle ooze landing on print start area) |
 | 5.3 | Klipper Estimator install | ✅ Done — binary on Mac at `/Users/user/klipper_estimator`, also on printer at `~/klipper_estimator`. Orca post-processing line is in the next section |
 | 5.4 | Beacon Contact mode + thermal expansion compensation | ⏳ Deferred — bigger change worth its own session if first-layer squish varies between prints |
+| 6 | OrcaSlicer seam + ironing tune (2026-04-11) | 🟡 **Partial — paused at acceptable state** — ironing fully solved (concentric pattern, 12% flow, 40 mm/s — no drag marks). Seams improved but not perfect: scarf still shows visible step bands, normal seam slightly pronounced at `restart_extra: 0.04`. User accepted "good enough for now, will revisit another day". Full trail in `orca_slicer/changelog/2026-04-11-*.md` and per-round backups at `orca_slicer/backups/2026-04-11-*/` |
 
 ### Cold-state hardware health (measured 2026-04-10)
 
@@ -85,17 +86,34 @@ Current binary version: v3.7.3 (2024-04-27, latest as of 2026-04-10).
 
 ---
 
+## Completed in the 2026-04-11 slicer tuning session
+
+Four test print iterations on a 40 mm OD / 30 mm ID annulus, plus a full profile cleanup, established the following:
+
+**Won**:
+- **Ironing**: switched from rectilinear (drag marks) to concentric — marks gone, surface clean. Concentric is the default; per-object overrides can select rectilinear for rectangular top surfaces
+- **Full settings cleanup**: retraction, Spiral Lift z_hop @ 0.2 mm with Top Only enforce, wipe distance 1 mm, ERS slope 150, `ensure_vertical_shell_thickness: ensure_moderate`, outer wall line width 150%, top/bottom shell layers 5, wall_loops 4, arc fitting disabled (see `2026-04-11-arc-fitting-correction.md` for why)
+- **Sunlu PLA Matte filament profile corrected**: vendor, density 1.24, vitrification 55, `filament_retract_restart_extra: 0.04`, `filament_max_volumetric_speed: 24`, z_hop/wipe overrides stripped so printer-level values apply
+- **Full round-by-round backups + changelogs** at `orca_slicer/backups/2026-04-11-*` (9 rounds) and `orca_slicer/changelog/2026-04-11-*` (7 changelog entries with rationale, photos, fallback plans)
+
+**Partial — paused at acceptable-not-perfect**:
+- **Scarf seam**: ~20 visible step bands still present (round 1's ERS 300→150 softened them but didn't eliminate). Scarf ridge at entry reduced but not fully confirmed gone
+- **Traditional seam**: slightly pronounced at `filament_retract_restart_extra: 0.04`. Was "pretty much perfect" at 0.05, minor regression from the v2 blob-reduction
+
+**Not done (future session)**:
+- Eliminating the residual scarf banding. Candidate next levers in `orca_slicer/changelog/2026-04-11-scarf-ridge-v2.md` → "Candidate next levers" section. Top candidates: reduce `seam_slope_steps` 20 → 10, or re-calibrate `pressure_advance` (stale since the 2026-04-10 shaper retune)
+
 ## First concrete action for the next session
 
-**Run a real calibration test print** with the SUNLU PLA Matte profile that Adam has already tuned. The point is to validate the input shaper, Z-tilt, belt symmetry, and probe accuracy *on actual print output*, not on more synthetic measurements.
+**No blocking next action** — the printer is ready for real print work. Optional priorities if you want to push further:
 
-Suggestions, in order of value:
+1. **Print something useful** — the best test of accumulated tuning is real-world print output. Adam explicitly said the seam state is "good enough for now"
+2. **Another seam tuning pass** (only if you care, not urgent) — fresh test print, start by experimenting with `seam_slope_steps: 20 → 10` and consider re-calibrating `pressure_advance` since it's been stale since the 2026-04-10 shaper retune. Full candidate lever list in the scarf v2 changelog
+3. **KAMP Smart Park + Line Purge** — touchless quality-of-life upgrades (prevents nozzle ooze on print start, adaptive purge line). Each ~10 minutes of config work
+4. **Other-material profiles** (ABS/ASA/PETG) — apply the proven seam/ironing settings to sibling process profiles if you want to print those materials. Low priority if PLA covers most of your work
+5. **Printer base damping** — sorbothane/cork pads under the cabinet. Likely more print-quality improvement per dollar than any further software tuning
 
-1. **Voron Tap test print** or any short XY ringing test cube (e.g., a 50 mm hollow cube at the printer's typical print speeds) — verifies the input shaper is correctly tuned by looking at outer-wall ringing
-2. **Calibration tower** for any one variable that wasn't covered in Adam's prior calibration
-3. **A real print** of something useful — the best test of tuning is whether real prints come out well
-
-Don't run more synthetic tuning macros unless a real print exposes a specific issue.
+Don't start any of these proactively. Wait for Adam to pick one.
 
 ---
 
@@ -130,6 +148,10 @@ Things on the "could do later" list but not priorities:
 - **Persistent journald on the Pi** — currently `Storage=volatile`, which means we lose pre-reboot kernel logs. Would help next time something low-level crashes the host
 - **CAN bus conversion finish** — Katapult is installed on the EBB36, but `can0` is not configured on the Pi. Running over USB for now. Separate project
 - **Printer base damping** — Adam's printer sits on a wobbly filing cabinet. Sorbothane/cork pads under the cabinet feet (or under the printer itself) would damp the gantry's intrinsic low-damping resonances and likely improve real print quality more than any further software tuning. ~$15 + 10 minutes once parts arrive
+- **Residual scarf step banding (2026-04-11)** — ~20 visible step bands still show on scarf seams even after the v2 restart-extra fix. Round 1's ERS slope reduction (300 → 150) softened them but didn't eliminate. Top candidate next levers: reduce `seam_slope_steps: 20 → 10`, re-calibrate `pressure_advance` (stale since 2026-04-10 shaper retune), or revert `filament_retract_restart_extra: 0.04 → 0.05` to restore perfect normal seams and accept the tradeoff. Full list in `orca_slicer/changelog/2026-04-11-scarf-ridge-v2.md`
+- **Pressure advance re-calibration post-shaper-retune** — current value `0.045` was calibrated before the 2026-04-10 MZV shaper change. Not urgent but possibly the root cause of the residual scarf banding and would be the cleanest single-variable experiment if the user picks seam tuning back up
+- **Apply proven slicer settings to ABS/ASA/PETG profiles** — the 2026-04-11 session only covered PLA. Other materials would need sibling process profiles plus material-specific filament profiles. Low priority if PLA covers 90% of print work
+- **Ironing pattern strategy for non-circular geometries** — concentric works great on round/annular parts but will show visible rings on rectangular top surfaces. Decision per-model via Orca's object-level overrides. Worth documenting a quick "shape → pattern" table in `orca_slicer/process/ironing_deep_dive.md`
 
 ---
 
@@ -141,8 +163,14 @@ Things on the "could do later" list but not priorities:
 - **`docs/references.md`** — best-practices library
 - **`tuning/2026-04-10/`** — full Shake&Tune baseline session: 14 PNGs, README with 7 sections, lessons learned
 - **`backups/2026-04-10/`** — pre-plugin config snapshot (printer.cfg history, system_info.txt, logs)
-- **`orca_slicer/backups/2026-04-10/`** — OrcaSlicer profile snapshot
-- **`.mcp.json`** — `mcp-3d-printer-server` config for the printer at 192.168.x.x
+- **`orca_slicer/backups/2026-04-10/`** — OrcaSlicer profile snapshot from pre-2026-04-11-session
+- **`orca_slicer/backups/2026-04-11-*/`** — per-round profile snapshots from the 2026-04-11 tuning session (9 rounds, each rollback-ready)
+- **`orca_slicer/changelog/2026-04-11-*.md`** — changelog entries for each tuning round with rationale, photos, and fallback plans
+- **`orca_slicer/process/seams_deep_dive.md`** — 65-reference research doc on seam types, scarf mechanics, and common issues
+- **`orca_slicer/process/ironing_deep_dive.md`** — 22-reference research doc on ironing patterns, contiguity, and flow percentages
+- **`orca_slicer/filament/sunlu_pla_matte.md`** — SUNLU PLA Matte spec sheet with community gotchas
+- **`orca_slicer/printer/`, `orca_slicer/process/`, `orca_slicer/filament/`** — per-setting walkthrough docs (basic_information.md, motion_ability.md, extruder.md, machine_gcode.md, quality_PLA.md, strength_PLA.md, speed_PLA.md, others_PLA.md, seam_diagnosis_field_notes.md)
+- **`.mcp.json`** — local `mcp-3d-printer-server` config, now gitignored (contains the real printer IP for local use). Add back manually if you clone this repo fresh on a new machine
 
 ### Memory (outside repo, persists across sessions)
 
@@ -194,4 +222,4 @@ Things deliberately not being pursued:
 
 ---
 
-*End of resume point. The next concrete action is a real calibration test print with SUNLU PLA Matte to validate the tuning on actual print quality, not more synthetic measurements.*
+*End of resume point. No blocking next action — mechanical (2026-04-10) and slicer (2026-04-11) tuning are both at a "good enough for production" state. The residual seam banding is a known, documented, accepted imperfection. See the phase status table and the "First concrete action" section above for optional follow-ups if the user wants to push further.*
