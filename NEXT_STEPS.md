@@ -174,10 +174,7 @@ Things on the "could do later" list but not priorities:
 
 ### Memory (outside repo, persists across sessions)
 
-- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/relay_trip_gotcha.md`
-- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/chamber_pid_skip.md`
-- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/dont_push_unneeded_tuning.md`
-- `~/.claude/projects/-Users-user-Repos-3d-printer/memory/beacon_vs_lis2dw_uncertainty.md`
+Claude Code's auto-memory system — path is environment-specific (derived from the working directory at `~/.claude/projects/<path-encoded>/memory/`). Claude accesses it through internal tools, not by navigating these paths directly. Current memory entries cover: relay trip gotcha, chamber PID skip, don't push unneeded tuning, Beacon-vs-LIS2DW uncertainty, and Klipper Estimator static config preference.
 
 ### On the printer
 
